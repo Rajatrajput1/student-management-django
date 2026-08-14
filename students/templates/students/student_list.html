@@ -1,0 +1,85 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'students/style.css' %}" />
+    <title>Student_list</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <div>
+          <h1>Student Management</h1>
+          <p>Manage and view all registered students</p>
+        </div>
+
+        <a href="{% url 'student_create' %}" class="add-btn"> + Add Student </a>
+      </div>
+      <form method="GET" class="filter-form">
+        <input
+          type="text"
+          name="search"
+          placeholder="Search by name"
+          value="{{ search|default:'' }}"
+        />
+        <button type="submit" class="search-btn">Search</button>
+        <a href="{% url 'student_list' %}" class="clear-btn">Clear</a>
+
+        <select name="course">
+          <option value="">All Courses</option>
+
+          {% for course_item in courses %}
+          <option
+            value="{{ course_item }}"
+            {%
+            if
+            course_item=""
+            ="course"
+            %}selected{%
+            endif
+            %}
+          >
+            {{ course_item }}
+          </option>
+          {% endfor %}
+        </select>
+      </form>
+      <div class = "table-container">
+        <table class="student-table">
+            <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Date of Birth</th>
+            <th>Contact number</th>
+            <th>Course</th>
+            <th>Start Year</th>
+            <th>End Year</th>
+            <th>Address</th>
+            <th>Action</th>
+            </tr>
+
+            {% for student in students %}
+            <tr>
+            <td>{{student.student_id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.date_of_birth}}</td>
+            <td>{{student.contact_number}}</td>
+            <td>{{student.course}}</td>
+            <td>{{student.start_year}}</td>
+            <td>{{student.end_year}}</td>
+            <td>{{student.address}}</td>
+            <td>
+                <a href="{% url 'student_update' student.student_id %}" class="edit-btn"> Edit </a>
+            </td>
+            </tr>
+
+            {% endfor %}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
