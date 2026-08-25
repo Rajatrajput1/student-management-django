@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
+from django.views.decorators.http import require_POST
 from .models import Student
 from .forms import StudentForm
 
@@ -22,12 +24,16 @@ def student_list(request):
                 "course",
                 flat=True
             ).distinct()
+
+    paginator = Paginator(students,10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     
     return render(
         request,
         "students/student_list.html",
         {
-            "students" : students,
+            "students" : page_obj,
             "courses" : courses,
             "search": search,
             "course": course
@@ -73,12 +79,13 @@ def student_update(request,student_id):
         "students/student_create.html",
         {"form": form, "student" : student}
         )
+@require_POST
 
 def student_delete(request, student_id):
     student = get_object_or_404(
         Student,
         student_id=student_id
     )
-    student.delete()
 
+    student.delete()
     return redirect("student_list")
