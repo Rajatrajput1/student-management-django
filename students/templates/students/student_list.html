@@ -48,6 +48,45 @@
       </form>
       <div class = "table-container">
         <table class="student-table">
+            {% if students.paginator.num_pages > 1 %}
+
+<div class="pagination">
+
+    {% if students.has_previous %}
+        <a href="?{{ query_params.urlencode }}&page={{ students.previous_page_number }}">
+            ← Previous
+        </a>
+    {% endif %}
+
+
+    {% for page_num in students.paginator.page_range %}
+
+        {% if students.number == page_num %}
+
+            <span class="current-page">
+                {{ page_num }}
+            </span>
+
+        {% else %}
+
+            <a href="?{{ query_params.urlencode }}&page={{ page_num }}">
+                {{ page_num }}
+            </a>
+
+        {% endif %}
+
+    {% endfor %}
+
+
+    {% if students.has_next %}
+        <a href="?{{ query_params.urlencode }}&page={{ students.next_page_number }}">
+            Next →
+        </a>
+    {% endif %}
+
+</div>
+
+{% endif %}
             <tr>
             <th>Student ID</th>
             <th>Name</th>

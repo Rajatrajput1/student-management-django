@@ -248,3 +248,46 @@ body {
     }
 
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+}
+
+
+.pagination a,
+.pagination .current-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.pagination a {
+    color: #2563eb;
+    background-color: white;
+    border: 1px solid #d1d5db;
+}
+
+
+.pagination a:hover {
+    background-color: #eff6ff;
+}
+
+
+.pagination .current-page {
+    color: white;
+    background-color: #2563eb;
+    border: 1px solid #2563eb;
+}

@@ -6,7 +6,7 @@ from .forms import StudentForm
 
 # Create your views here.
 def student_list(request):
-    students = Student.objects.all()
+    students = Student.objects.all().order_by("student_id")
 
     search = request.GET.get('search')
     if search:
@@ -25,15 +25,19 @@ def student_list(request):
                 flat=True
             ).distinct()
 
-    paginator = Paginator(students,10)
+    paginator = Paginator(students,5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+
+    query_params = request.GET.copy()
+    query_params.pop("page", None)
     
     return render(
         request,
         "students/student_list.html",
         {
             "students" : page_obj,
+            "query_params": query_params,
             "courses" : courses,
             "search": search,
             "course": course
