@@ -8,6 +8,42 @@
     <title>Student_list</title>
   </head>
   <body>
+
+    <div class="welcome-section">
+
+    <div class="welcome-content">
+
+        <p class="welcome-small">Student Portal</p>
+
+        <h1>
+            Hello,<br>
+            Welcome,
+            <span>{{ user.username }}!</span>
+        </h1>
+
+        {% comment %} <p class="welcome-description">
+            Manage and view all registered students from your dashboard.
+        </p> {% endcomment %}
+
+    </div>
+
+    <div class="welcome-actions">
+
+        <div class="user-badge">
+            <span class="user-icon">👤</span>
+            <span>{{ user.username }}</span>
+        </div>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                Logout
+            </button>
+        </form>
+
+    </div>
+
+</div>
     <div class="container">
       <div class="page-header">
         <div>

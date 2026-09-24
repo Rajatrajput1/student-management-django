@@ -1,0 +1,44 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{% static 'students/style.css' %}" />
+
+    <title>Login | Student Portal</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="form-header">
+            <div>
+                <h1>Student Portal</h1>
+                <p>Login to access the student management system</p>
+            </div>
+        </div>
+
+        <div class="form-card login-card">
+
+            <h2>Login</h2>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit" class="save-btn">
+                    Login
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
