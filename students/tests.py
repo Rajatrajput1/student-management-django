@@ -763,3 +763,31 @@ class StudentAPITest(APITestCase):
                 student_id="S10001"
             ).exists()
         )
+
+    def test_session_authentication(self):
+        self.client.force_authenticate(user=None)
+
+        login_successful = self.client.login(
+            username="apitestuser",
+            password="testpassword123"
+        )
+
+        self.assertTrue(login_successful)
+
+        response = self.client.get(self.list_url)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_session_authentication_after_logout(self):
+        self.client.force_authenticate(user=None)
+
+        self.client.login(
+            username="apitestuser",
+            password="testpassword123"
+        )
+
+        self.client.logout()
+
+        response = self.client.get(self.list_url)
+
+        self.assertEqual(response.status_code, 403)
